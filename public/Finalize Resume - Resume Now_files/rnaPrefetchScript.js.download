@@ -1,0 +1,140 @@
+var hostParts = window.location.host.split('.');
+var env = 'local';
+var blobFolder = 'qa/';
+var contentPath = '/payment/contents/';
+var baseUrl = 'https://@@env.' + hostParts[1] + '.com/payment';
+var vendorBundleSrc = 'https://@@env.' + hostParts[1] + '.com/payment/build/vendor.bundle.js?v=1.0.0.349';
+var developerBundleSrc = 'https://@@env.' + hostParts[1] + '.com/payment/build/app.bundle.js?v=1.0.0.349';
+var plansBundleSrc = 'https://@@env.' + hostParts[1] + '.com/payment/build/plans-1.0.0.349.bundle.js';
+var appJsSrc = 'https://@@env.' + hostParts[1] + '.com/payment/scripts/app.js?v=1.0.0.349';
+var ecomWidget = 'https://@@env.' + hostParts[1] + '.com/payment/build/widget.bundle.js?v=1.0.0.349';
+var bootstrapSrc = 'styles/bootstrap/bootstrap.min.css';
+var fontAwesomeSrc = 'fonts/fontawesome5-subset/css/all.min.css';
+var fontAwesomeSolidBrandsWoffSrc = 'styles/font-awesome-5/webfonts/fa-brands-400.woff2';
+var jQuerySrc = '/blob/common/scripts/jquery-3.5.1.min.js';
+var googleFontsSrc = 'https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700|Source+Sans+Pro:200,300,400,600,700|Open+Sans:300,400,600,700,800|Roboto+Slab:100,300,400,700|Work+Sans:300,400,500,600,700|Merriweather:300,400,600,700';
+var mainCssSrc = 'https://@@env.' + hostParts[1] + '.com/payment/stylesheets/rna/main.css?v=1.0.0.349';
+var resFileName = 'dev.json?v=1.0.0.349';
+var esShimSrc = 'scripts/es6/es6-shim.min.js';
+switch (hostParts[0]) {
+case 'reg':
+case 'reg-app':
+case 'pen':
+    env = hostParts[0];
+    blobFolder = 'reg/';
+    resFileName = 'reg.json?v=1.0.0.349';
+    break;
+case 'stg':
+case 'stg-app':
+    env = 'stg';
+    blobFolder = 'stg/';
+    resFileName = 'stg.json?v=1.0.0.349';
+    break;
+case 'qa':
+case 'qa-app':
+    env = hostParts[0];
+    blobFolder = 'qa/';
+    break;
+case 'perf':
+case 'perf-app':
+    env = hostParts[0];
+    blobFolder = 'reg/';
+    break;
+case 'www':
+    env = hostParts[0];
+    blobFolder = 'prod/';
+    resFileName = 'prod.json?v=1.0.0.349';
+    break;
+}
+var localizedTextJsonPath = baseUrl.replace('@@env', env) + '/contents/' + blobFolder + 'resume-now.com/localizedText.json?v=1.0.0.349';
+var ecomJsonPath = baseUrl.replace('@@env', env) + '/contents/' + blobFolder + 'common/localizedText.json?v=1.0.0.349';
+var resfilePath = baseUrl.replace('@@env', env) + '/contents/' + blobFolder + 'resume-now.com/' + resFileName + '?v=1.0.0.349';
+var nrJsPath = baseUrl.replace('@@env', env) + '/contents/' + blobFolder + 'resume-now.com/nr.js';
+
+function isEmpty(obj) {
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+function prefetchFiles(src, callback, attributes) {
+    var s, r, t;
+    r = false;
+    s = document.createElement('link');
+    s.rel = 'prefetch';
+    s.href = src;
+    if (attributes && isEmpty(attributes)) {
+        for (var key in attributes) {
+            var attr = document.createAttribute(key);
+            if (attributes[key]) {
+                attr.value = attributes[key];
+            }
+            s.setAttributeNode(attr);
+        }
+    }
+    s.onload = s.onreadystatechange = function () {
+        if (!r && (!this.readyState || this.readyState == 'complete' || this.readyState == 'loaded')) {
+            r = true;
+            callback && callback();
+        }
+    };
+    t = document.getElementsByTagName('link')[0];
+    t.parentNode.insertBefore(s, t);
+}
+
+function loadImageFiles() {
+    var imageList = [];
+    imageList.push('/images/rna/fomo.png');
+    imageList.push('/images/rna/comment-icon.png');
+    imageList.push('/images/rna/NewAppStore.png');
+    imageList.push('/images/rna/logo.png');
+    imageList.push('/images/rna/contact-icon.png');
+    imageList.push('/images/rna/office.png');
+    imageList.push('/images/rna/NewGoogleStore.png');
+    imageList.push('/images/wlb/loading.gif');
+    imageList.push('/images/rna/icon-app-store.png');
+    imageList.push('/images/rna/hubert_baker.png');
+    imageList.push('/images/rna/Heather_spielmaker.png');
+    imageList.push('/images/rna/asSeenInSellPage.png');
+    imageList.push('/images/rna/footer_logo.png');
+    imageList.push('/images/rna/footer-social-icons.png');
+    imageList.push('/images/rna/jobsnow.png');
+    imageList.push('/images/rna/secondary-logo.png');
+    imageList.push('/images/rna/rn-rebranding/seen-in-logos.png');
+    imageList.push('/images/rna/rn-rebranding/jobs-mob.png');
+    imageList.push('/images/rna/rn-rebranding/rebrand-logo.png');
+    imageList.push('/images/rna/rn-rebranding/app-store.png');
+    imageList.push('/images/rna/rn-rebranding/google-play-badge.png');
+    imageList.push('/images/rna/rn-rebranding/HRTech.png');
+    imageList.push('/images/rna/rn-rebranding/IAEWS.png');
+    imageList.push('/images/rna/rn-rebranding/fomo1.svg');
+    imageList.push('/images/rna/rn-rebranding/fomo2.svg');
+    imageList.push('/images/rna/rn-rebranding/fomo3.svg');
+    imageList.push('/images/rna/rn-rebranding/fomo4.svg');
+    imageList.push('/images/rna/rn-rebranding/fomo5.svg');
+    imageList.forEach(function (image) {
+        prefetchFiles(baseUrl.replace('@@env', env) + image);
+    });
+}
+
+prefetchFiles(vendorBundleSrc.replace('@@env', env));		//prefetch vendor bundle
+prefetchFiles(developerBundleSrc.replace('@@env', env));	//prefetch developer bundle
+prefetchFiles(plansBundleSrc.replace('@@env', env));	//prefetch plans bundle
+prefetchFiles(appJsSrc.replace('@@env', env));	//prefetch app JS
+prefetchFiles(ecomWidget.replace('@@env', env));
+prefetchFiles(contentPath + bootstrapSrc);						//prefetch bootstrap CSS
+prefetchFiles(contentPath + fontAwesomeSrc);						//prefetch fontawesome CSS
+prefetchFiles(contentPath + fontAwesomeSolidBrandsWoffSrc);
+prefetchFiles(jQuerySrc);						//prefetch jQuery
+prefetchFiles(contentPath + esShimSrc);
+prefetchFiles(googleFontsSrc);					//prefetch googleFonts CSS
+prefetchFiles(mainCssSrc.replace('@@env', env));			//prefetch main CSS 
+prefetchFiles(ecomJsonPath);            //prefetch ecom JSON
+prefetchFiles(localizedTextJsonPath);
+prefetchFiles(resfilePath);
+prefetchFiles(nrJsPath);
+prefetchFiles('https://www.google.com/recaptcha/api.js?render=explicit');
+loadImageFiles();										//prefect image files
+
