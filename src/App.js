@@ -8,6 +8,12 @@ export default function App() {
         <div className="box"></div>
         <div className="box"></div>
         <div className="box"></div>
+        <div className="box"></div>
+        <div className="box"></div>
+        <div className="box"></div>
+        <div className="box"></div>
+        <div className="box"></div>
+        <div className="box"></div>
       </div>
 
 
